@@ -1,0 +1,31 @@
+
+
+import os
+import numpy as np
+from statistics import mean
+import math
+
+#Gravitational constant
+g = 9.81 
+
+#Mass of brio train in grams
+m = 86
+
+cwd = os.getcwd()
+files = os.listdir(cwd)
+
+def group(lst, size):
+  return [lst[i:i+size] for i in range(0, len(lst), size)]
+
+with open("IA/data.txt") as file:
+  content = file.read()
+
+lst = list( map(float, content.split() ) ) 
+
+array_data_split = group(group(lst, 5), 2) 
+ads_mean = group([ round(mean(k), 2) for i, l in enumerate(array_data_split) for k in l], 2)
+
+array_data_joined = np.array(group(lst, 10))
+adj_mean = np.fromiter(map(lambda x: mean(x), array_data_joined), float )
+
+print(ads_mean)
